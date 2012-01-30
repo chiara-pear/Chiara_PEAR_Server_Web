@@ -3,8 +3,8 @@
  * Chiara PEAR Channel Web frontend. This is a public web interface
  * to a Chiara_PEAR_Server channel.
  *
- * @package Chiara_PEAR_Server_Web
- * @category Crtx
+ * @category PEAR
+ * @package  Chiara_PEAR_Server_Web
  */
 
 /**
@@ -101,13 +101,13 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Chiara_PEAR_Server_Web Constructor
      *
      * @param string $channel Channel URI
-     * @param array $options An array of options. <code>array('database' => $DSN, 'index' => 'index.php', 'admin' => 'admin.php');</code>
+     * @param array  $options An array of options. <code>array('database' => $DSN, 'index' => 'index.php', 'admin' => 'admin.php');</code>
      */
     public function __construct($channel, $options)
     {
-        $this->index = (isset($options['index'])) ? $options['index'] : 'index.php';
-        $this->admin = (isset($options['admin'])) ? $options['admin'] : 'admin.php';
-        $this->rss = (isset($options['rss'])) ? $options['rss'] : $this->index;
+        $this->index     = (isset($options['index'])) ? $options['index'] : 'index.php';
+        $this->admin     = (isset($options['admin'])) ? $options['admin'] : 'admin.php';
+        $this->rss       = (isset($options['rss'])) ? $options['rss'] : $this->index;
         $this->quickForm = new HTML_QuickForm('channel_frontend');
         parent::__construct($channel, false, $options);
         $this->functions = array(
@@ -243,7 +243,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         $start = $limit - $per_page;
         $packages->limit($start, $limit);
         $packages->category_id = $cat->id;
-        $packages->channel = $this->_channel;
+        $packages->channel     = $this->_channel;
         $packages->find();
         echo '<h2>' .$cat->name. '</h2>';
         echo '<table><tr><th colspan="3">';
@@ -255,11 +255,11 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         echo '</th></tr>';
 
         $pager =& Pager::factory(array(
-        'totalItems' => $count,
-        'perPage' => $per_page,
-        'urlVar' => 'page',
+        'totalItems'  => $count,
+        'perPage'     => $per_page,
+        'urlVar'      => 'page',
         'clearIfVoid' => true,
-        'extraVars' => array('category' => $_GET['category']),
+        'extraVars'   => array('category' => $_GET['category']),
         ));
 
         $pager_links = $pager->getLinks();
@@ -269,7 +269,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
                 </tr>';
         }
         echo '<tr><th>#</th><th>Package Name</th><th>Description</th></tr>';
-        $i = 0;
+        $i       = 0;
         $classes = array("dark", "light");
         while ($packages->fetch()) {
             $class = $i % 2;
@@ -365,10 +365,10 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Get packages within a single category, optionally limit to $limit packages
      *
      * @param string $category Category ID
-     * @param int $limit Amount of packages to query for
+     * @param int    $limit    Amount of packages to query for
+     * 
      * @return array An array of package rows
      */
-
     private function getCategoryPackages($category, $limit = null)
     {
         $pkg = DB_DataObject::factory('packages');
@@ -477,12 +477,13 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * release and a 1.0.1-snapshot)
      *
      * @param string $pkg Packaage name
+     * 
      * @return array An array of releases
      */
     private function getPackageLatestReleases($pkg)
     {
         $package = DB_DataObject::factory('releases');
-        $states = array('snapshot', 'devel', 'alpha', 'beta', 'stable');
+        $states  = array('snapshot', 'devel', 'alpha', 'beta', 'stable');
         foreach ($states as $state) {
             //            $package->query("SELECT version, UNIX_TIMESTAMP(releasedate) AS epoch, DATE_FORMAT(releasedate, '%M %D %Y') AS date,  MAX(releasedate) FROM releases WHERE package='$pkg' AND channel='{$this->_channel}' AND state='$state' GROUP BY package");
             $package->query("SELECT version, UNIX_TIMESTAMP( releasedate )  AS epoch, DATE_FORMAT( releasedate,  '%M %D %Y'  )  AS date, MAX( releasedate )  FROM releases WHERE package='$pkg' AND channel='{$this->_channel}' AND state='$state' GROUP  BY releasedate ORDER  BY releasedate DESC  LIMIT 1");
@@ -500,7 +501,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
 
         for ($i = 0; $i < sizeof($states); $i++) {
             if (isset($states[$i+1]) && $release[$states[$i]]['epoch'] < $release[$states[$i+1]]['epoch']) {
-                unset($release[$states[$i+1]]);
+                unset($release[$states[$i]]);
             }
         }
 
@@ -515,7 +516,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      */
     public function showPackageExtras()
     {
-        $package = DB_DataObject::factory('package_extras');
+        $package          = DB_DataObject::factory('package_extras');
         $package->package = $_GET['package'];
         if (!$package->find(true)) {
             return;
@@ -574,22 +575,23 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
                         <ul>";
                 foreach ($release['deps'] as $dep) {
                     $rel_trans = array('lt' => 'older than %s',
-                    'le' => '%s or older',
-                    'eq' => 'version %s',
-                    'ne' => 'any version but %s',
-                    'gt' => 'newer than %s',
-                    'ge' => '%s or newer',
-                    );
+                                       'le' => '%s or older',
+                                       'eq' => 'version %s',
+                                       'ne' => 'any version but %s',
+                                       'gt' => 'newer than %s',
+                                       'ge' => '%s or newer',
+                                       );
+
                     $dep_type_desc = array('pkg'    => 'Package',
-                    'ext'    => 'PHP Extension',
-                    'php'    => 'PHP',
-                    'prog'   => 'Program',
-                    'ldlib'  => 'Development Library',
-                    'rtlib'  => 'Runtime Library',
-                    'os'     => 'Operating System',
-                    'websrv' => 'Web Server',
-                    'sapi'   => 'SAPI Backend',
-                    );
+                                           'ext'    => 'PHP Extension',
+                                           'php'    => 'PHP',
+                                           'prog'   => 'Program',
+                                           'ldlib'  => 'Development Library',
+                                           'rtlib'  => 'Runtime Library',
+                                           'os'     => 'Operating System',
+                                           'websrv' => 'Web Server',
+                                           'sapi'   => 'SAPI Backend',
+                                           );
 
                     if (!isset($dep['name'])) {
                         $dep['name'] = '';
@@ -635,11 +637,11 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
     public function showPackageSearchForm()
     {
         $category = DB_DataObject::factory('categories');
-        $handle = DB_DataObject::factory('handles');
+        $handle   = DB_DataObject::factory('handles');
 
         $category->channel = $this->_channel;
         $category->find();
-        $categories = array('-1' => '');
+        $categories    = array('-1' => '');
         $categories[0] = 'No Category';
         while ($category->fetch()) {
             $categories[$category->id] = $category->name;
@@ -656,11 +658,11 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         echo '<h2>Search Packages</h2>';
 
 
-        $defaults['match'] = (!isset($_REQUEST['match'])) ? 'all' : $_REQUEST['match'];
-        $defaults['name'] = (!isset($_REQUEST['name'])) ? '' : $_REQUEST['name'];
-        $defaults['search'] = '1';
+        $defaults['match']       = (!isset($_REQUEST['match'])) ? 'all' : $_REQUEST['match'];
+        $defaults['name']        = (!isset($_REQUEST['name'])) ? '' : $_REQUEST['name'];
+        $defaults['search']      = '1';
         $defaults['category_id'] = (!isset($_REQUEST['category_id'])) ? '-1' : $_REQUEST['category_id'];
-        $defaults['maintainer'] = (!isset($_REQUEST['maintainer'])) ? '-1' : $_REQUEST['maintainer'];
+        $defaults['maintainer']  = (!isset($_REQUEST['maintainer'])) ? '-1' : $_REQUEST['maintainer'];
         $this->quickForm->setDefaults($defaults);
 
         $this->quickForm->addElement('header', '', 'Search by Package Name');
@@ -702,28 +704,32 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
     /**
      * Show Search Results
      *
-     * @param array $search Result of the search form
-     * @param string $type Type of search to perform
+     * @param array  $search Result of the search form
+     * @param string $type   Type of search to perform
+     * 
      * @return void
      */
     public function showPackageSearchResults($search, $type)
     {
         $per_page = $this->per_page;
         switch ($type) {
-            case 'package':
+        case 'package':
             $package = $this->packageSearchByName($search);
-            $extraVars['name'] = $search['name'];
+            
+            $extraVars['name']  = $search['name'];
             $extraVars['match'] = $search['match'];
             break;
-            case 'maintainer':
+        case 'maintainer':
             $package = $this->packageSearchByMaintainer($search);
+            
             $extraVars['maintainer'] = $search['maintainer'];
             break;
-            case 'category':
+        case 'category':
             $package = $this->packageSearchByCategory($search);
+            
             $extraVars['category'] = $search['category_id'];
             break;
-            default:
+        default:
             return;
         }
 
@@ -797,14 +803,16 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Search Packages by Name
      *
      * @param array $search The result array from the search forms HTML_QuickForm
+     * 
      * @return object DB_DataObject with which to perform the search
      */
     private function &packageSearchByName($search)
     {
-        $package = DB_DataObject::factory('packages');
+        $package          = DB_DataObject::factory('packages');
         $package->channel = $this->_channel;
+        
         $seperator = (!isset($search['match']) || $search['match'] == 'all') ? 'AND' : 'OR';
-        $terms = explode(' ', $search['name']);
+        $terms     = explode(' ', $search['name']);
         foreach ($terms as $key => $term) {
             $terms[$key] = "package LIKE '%" .$package->escape($term). "%'";
         }
@@ -821,6 +829,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Search Packages by Category
      *
      * @param array $search The result array from the search forms HTML_QuickForm
+     * 
      * @return object DB_DataObject with which to perform the search
      */
     private function &packageSearchByCategory($search)
@@ -841,15 +850,16 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Search Packages by Maintainer
      *
      * @param array $search The result array from the search forms HTML_QuickForm
+     * 
      * @return object DB_DataObject with which to perform the search
      */
     private function &packageSearchByMaintainer($search)
     {
         $maintainer = DB_DataObject::factory('maintainers');
-        $package = DB_DataObject::factory('packages');
+        $package    = DB_DataObject::factory('packages');
 
         $maintainer->channel = $this->_channel;
-        $maintainer->handle = $search['maintainer'];
+        $maintainer->handle  = $search['maintainer'];
 
         if (!$maintainer->find()) {
             return false;
@@ -932,14 +942,14 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      */
     public function showMaintainerInfo()
     {
-        $handle = DB_DataObject::factory('handles');
+        $handle     = DB_DataObject::factory('handles');
         $maintainer = DB_DataObject::factory('maintainers');
 
-        $handle->handle = $_GET['user'];
-        $handle->channel = $this->_channel;
-        $maintainer->handle = $_GET['user'];
+        $handle->handle      = $_GET['user'];
+        $handle->channel     = $this->_channel;
+        $maintainer->handle  = $_GET['user'];
         $maintainer->channel = $this->_channel;
-        $maintainer->active = 1;
+        $maintainer->active  = 1;
 
         if (!$handle->find(true)) {
             echo "<p><strong class='error'>Maintainer Not Found</strong></p>";
@@ -948,7 +958,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
 
         $packages = array();
         if ($maintainer->find()) {
-            while($maintainer->fetch()) {
+            while ($maintainer->fetch()) {
                 $packages[] = $maintainer->toArray();
             }
         }
@@ -990,12 +1000,15 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Show the $how_many Latest Releases for the channel
      *
      * @param int $how_many How many releases to display
+     * 
+     * @return void
      */
-    public function showLatestReleases($how_many = null) {
+    public function showLatestReleases($how_many = null)
+    {
         if (is_null($how_many)) {
             $how_many = $this->rss_limit;
         }
-        $release = DB_DataObject::factory('releases');
+        $release          = DB_DataObject::factory('releases');
         $release->channel = $this->_channel;
         $release->orderBy('releasedate DESC');
         $release->limit(0, $how_many);
@@ -1031,7 +1044,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      */
     public function showMaintainerEmailForm()
     {
-        $handle = DB_DataObject::factory('handles');
+        $handle          = DB_DataObject::factory('handles');
         $handle->channel = $this->_channel;
 
         echo "<h2>E-Mail Maintainer</h2>";
@@ -1062,16 +1075,16 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         $this->quickForm->addElement('textarea', 'message', 'Message: ', array('cols' => 40, 'rows' => 8));
         $this->quickForm->addElement('submit', 'submit', 'Send E-Mail');
 
-        $this->quickForm->addRule('handle' , 'Please choose a Maintainer to e-mail', 'required');
-        $this->quickForm->addRule('handle' , 'Please choose a Maintainer to e-mail', 'minlength', 2);
-        $this->quickForm->addRule('from' , 'Please enter your e-mail address', 'required');
-        $this->quickForm->addRule('subject' , 'Please enter a subject', 'required');
-        $this->quickForm->addRule('message' , 'Please enter a message', 'required');
+        $this->quickForm->addRule('handle', 'Please choose a Maintainer to e-mail', 'required');
+        $this->quickForm->addRule('handle', 'Please choose a Maintainer to e-mail', 'minlength', 2);
+        $this->quickForm->addRule('from', 'Please enter your e-mail address', 'required');
+        $this->quickForm->addRule('subject', 'Please enter a subject', 'required');
+        $this->quickForm->addRule('message', 'Please enter a message', 'required');
 
         if ($this->quickForm->validate()) {
-            $handle = DB_DataObject::factory('handles');
+            $handle          = DB_DataObject::factory('handles');
             $handle->channel = $this->_channel;
-            $handle->handle = $this->quickForm->getSubmitValue('handle');
+            $handle->handle  = $this->quickForm->getSubmitValue('handle');
             $handle->debugValue(1);
             if (!$handle->find(true)) {
                 echo "<p><strong class='error'>Maintainer does not exist</strong></p>";
@@ -1079,9 +1092,9 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
             }
             if (!$this->mailfrom) {
                 $channel = $this->channelInfo();
-                $from = $channel['summary'] . '<noreply@' .$channel['channel'];
-            } else {$
-            $from = $this->mailfrom;
+                $from    = $channel['summary'] . '<noreply@' .$channel['channel'];
+            } else {
+                $from = $this->mailfrom;
             }
             mail($handle->email, $this->quickForm->getSubmitValue('subject'), $this->quickForm->getSubmitValue('message'), 'From: ' .$this->quickForm->getSubmitValue('from'));
             echo "<p><strong>Thank you. {$handle->name} has been e-mailed with your message.</strong></p>";
@@ -1161,11 +1174,12 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      */
     public function showRSS()
     {
-        $release = DB_DataObject::factory('releases');
+        $release          = DB_DataObject::factory('releases');
         $release->channel = $this->_channel;
         $release->limit(0, $this->rss_limit);
         $release->orderBy('releasedate DESC');
         $channel = $this->channelInfo();
+        
         $rdf = '<?xml version="1.0" encoding="iso-8859-1"?>
                 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
                     <channel rdf:about="http://' .$this->_channel. '">
@@ -1248,7 +1262,6 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      *
      * @return array
      */
-
     public function getMenu()
     {
         $menu = array(
@@ -1307,19 +1320,23 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
             To add this channel to your PEAR install, use:
         </p>
         <p>
-            <code>pear channel-discover <?php echo $channel['channel']; ?></code>
+            <code>
+                pear channel-discover <?php echo $channel['channel']; ?>
+            </code>
         </p>
         <p>
             Then you will be able to install our packages by using:
         </p>
         <p>
-            <code>pear install <?php echo $channel['alias']; ?>/<strong>package_name</strong></code>
+            <code>pear install <?php echo $channel['alias']; ?>/
+            <strong>package_name</strong></code>
         </p>
         <?php
     }
 
     /**
-     * Determine if a user is currently logged in (or previously logged in) to the admin
+     * Determine if a user is currently logged in (or previously logged in) to
+     * the admin
      *
      * @return boolean
      */

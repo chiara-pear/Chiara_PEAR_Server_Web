@@ -23,23 +23,59 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
   <email>davey@php.net</email>
   <active>yes</active>
  </lead>
- <date>2008-05-21</date>
- <time>09:02:22</time>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Brett Bieber</name>
+  <user>bbieber</user>
+  <email>brett.bieber@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Davey Shafik</name>
+  <user>davey</user>
+  <email>davey@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Brett Bieber</name>
+  <user>bbieber</user>
+  <email>brett.bieber@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Davey Shafik</name>
+  <user>davey</user>
+  <email>davey@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-06-16</date>
+ <time>08:32:10</time>
  <version>
-  <release>0.4.0</release>
-  <api>0.4.0</api>
+  <release>0.4.1</release>
+  <api>0.4.1</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
- <notes>First release, port of code from Crtx_PEAR_Channel_Frontend - rename to Chiara_PEAR_Server_Web.
-See docs/examples/index.php for a usage example.</notes>
+ <notes>* Add undeclared dependency on Pager.
+* Fix to getPackageLatestReleases() method from Pavel Shevaev</notes>
  <contents>
   <dir baseinstalldir="Chiara/PEAR/Server" name="/">
    <file baseinstalldir="Chiara/PEAR/Server" md5sum="6bcf0cff957b6ce7bd7eb3a477eb8bd1" name="docs/examples/index.php" role="doc"/>
-   <file baseinstalldir="Chiara/PEAR/Server" md5sum="12145cbd6aa6978edbe7cc7d775cde24" name="Web.php" role="php"/>
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="90f53333028f889889359a979eac6808" name="Web.php" role="php"/>
   </dir>
  </contents>
  <dependencies>
@@ -54,6 +90,26 @@ See docs/examples/index.php for a usage example.</notes>
     <name>Chiara_PEAR_Server</name>
     <channel>pear.chiaraquartet.net</channel>
     <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.3.0</min>
+   </package>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.3.0</min>
    </package>
   </required>
  </dependencies>
@@ -72,6 +128,20 @@ See docs/examples/index.php for a usage example.</notes>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
    <notes>First release, port of code from Crtx_PEAR_Channel_Frontend - rename to Chiara_PEAR_Server_Web.
 See docs/examples/index.php for a usage example.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.4.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-06-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>* Add undeclared dependency on Pager.
+* Fix to getPackageLatestReleases() method from Pavel Shevaev</notes>
   </release>
  </changelog>
 </package>
