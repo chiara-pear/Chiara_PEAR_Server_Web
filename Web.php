@@ -3,8 +3,14 @@
  * Chiara PEAR Channel Web frontend. This is a public web interface
  * to a Chiara_PEAR_Server channel.
  *
+ * PHP Version 5
+ * 
  * @category PEAR
  * @package  Chiara_PEAR_Server_Web
+ * @author   Davey Shafik <davey@synapticmedia.net>
+ * @author   Brett Bieber <brett.bieber@gmail.com>
+ * @license  New BSD
+ * @link     http://pear.chiaraquartet.net/index.php?package=Chiara_PEAR_Server_Web
  */
 
 /**
@@ -29,48 +35,50 @@ require_once 'Pager/Pager.php';
  * 
  * Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend
  *
- * @copyright Copyright David Shafik and Synaptic Media 2004. All rights reserved.
- * @author Davey Shafik <davey@synapticmedia.net>
- * @link http://www.synapticmedia.net Synaptic Media
- * @version $Id: Frontend.php 414 2006-04-13 02:54:12Z davey $
- * @package Chiara_PEAR_Server_Web
- * @category Crtx
+ * @category  Web
+ * @package   Chiara_PEAR_Server_Web
+ * @author    Davey Shafik <davey@synapticmedia.net>
+ * @author    Brett Bieber <brett.bieber@gmail.com>
+ * @copyright 2004 David Shafik and Synaptic Media. All rights reserved.
+ * @license   New BSD
+ * @link      http://pear.chiaraquartet.net/index.php?package=Chiara_PEAR_Server_Web
  */
 
-class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
+class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject
+{
 
     /**
      * Filename for the file using this package
      *
      * @var string
      */
-    private $index = '';
+    protected $index = '';
 
     /**
      * Filename for the file to serve RSS feeds from
      *
      * @var string
      */
-    private $rss = '';
+    protected $rss = '';
 
     /**
      * Filename for the Admin Interface
      *
      * @var string
      */
-    private $admin = '';
+    protected $admin = '';
 
     /**
      * A Quickform Instance for use in Search/E-Mail forms
      *
      * @var HTML_QuickForm
      */
-    private $quickForm = null;
+    protected $quickForm = null;
 
     /**
      *  Username for admin user
      */
-    private $user = false;
+    protected $user = false;
 
     /**
      * How many items to show per page
@@ -101,26 +109,30 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * Chiara_PEAR_Server_Web Constructor
      *
      * @param string $channel Channel URI
-     * @param array  $options An array of options. <code>array('database' => $DSN, 'index' => 'index.php', 'admin' => 'admin.php');</code>
+     * @param array  $options An array of options. 
+     *              <code>array('database' => $DSN,
+     *                          'index' => 'index.php',
+     *                          'admin' => 'admin.php');</code>
      */
     public function __construct($channel, $options)
     {
-        $this->index     = (isset($options['index'])) ? $options['index'] : 'index.php';
-        $this->admin     = (isset($options['admin'])) ? $options['admin'] : 'admin.php';
-        $this->rss       = (isset($options['rss'])) ? $options['rss'] : $this->index;
+        $this->index = (isset($options['index'])) ? $options['index'] : 'index.php';
+        $this->admin = (isset($options['admin'])) ? $options['admin'] : 'admin.php';
+        $this->rss   = (isset($options['rss'])) ? $options['rss'] : $this->index;
+        
         $this->quickForm = new HTML_QuickForm('channel_frontend');
         parent::__construct($channel, false, $options);
         $this->functions = array(
-        'category' => 'showCategory',
-        'categories' => 'showCategoryList',
-        'package' => 'showPackage',
-        'search' => 'showPackageSearchForm',
-        'install' => 'showInstallPage',
-        'faq' => 'showFaqPage',
-        'rss' => 'showRSS',
+        'category'    => 'showCategory',
+        'categories'  => 'showCategoryList',
+        'package'     => 'showPackage',
+        'search'      => 'showPackageSearchForm',
+        'install'     => 'showInstallPage',
+        'faq'         => 'showFaqPage',
+        'rss'         => 'showRSS',
         'maintainers' => 'showAccountList',
-        'user' => 'showMaintainerInfo',
-        'email' => 'showMaintainerEmailForm',
+        'user'        => 'showMaintainerInfo',
+        'email'       => 'showMaintainerEmailForm',
         );
         /*
         Special case, catch RSS feed requests and be sure to not continue with
@@ -202,9 +214,9 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         }
         if ($_GET['category'] == "Default") {
             $_GET['category'] == 0;
-            $cat = new stdClass();
+            $cat       = new stdClass();
             $cat->name = "Packages";
-            $cat->id = 0;
+            $cat->id   = 0;
         } else {
             $cat = DB_DataObject::factory('categories');
             if (is_numeric($_GET['category'])) {
@@ -221,7 +233,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
 
         $packages = DB_DataObject::factory('packages');
 
-        $packages->query('SELECT COUNT(package) AS count FROM packages WHERE category_id=' .$cat->id);
+        $packages->query('SELECT COUNT(package) AS count FROM packages WHERE category_id=' . $cat->id);
 
         $packages->fetch();
         $count = $packages->count;
@@ -273,16 +285,21 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         $classes = array("dark", "light");
         while ($packages->fetch()) {
             $class = $i % 2;
+            
             $i += 1;
-            echo '<tr class="' .$classes[$class]. '">
-                    <td>' .$i. '</td>'
-            . '<td><a href="' .$this->index. '?package=' .$packages->package. '">' .$packages->package. '</a></td>'
-            . '<td>' .nl2br($packages->summary). '</td>'
-            .'</tr>';
+            echo '<tr class="'.$classes[$class].'">'
+                  . '<td>'.$i.'</td>'
+                  . '<td>'
+                  . '<a href="'.$this->index.'?package='.$packages->package.'">'
+                         .$packages->package.'</a></td>'
+                  . '<td>'.nl2br($packages->summary).'</td>'
+                  .'</tr>';
         }
         if (!empty($pager_links['all'])) {
             echo '<tr>
-                    <td colspan="3" class="pager"><p style="text-align: center;">' .$pager_links['all'].'</p></td>
+                    <td colspan="3" class="pager">
+                        <p style="text-align: center;">' .$pager_links['all'].'</p>
+                    </td>
                 </tr>';
         }
         echo '</table>';
@@ -347,11 +364,13 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         while ($packages->fetch()) {
             $class = $i % 2;
             $i += 1;
-            echo '<tr class="' .$classes[$class]. '">
-                    <td>' .$i. '</td>'
-            . '<td><a href="' .$this->index. '?package=' .$packages->package. '">' .$packages->package. '</a></td>'
-            . '<td>' .nl2br($packages->summary). '</td>'
-            .'</tr>';
+            echo '<tr class="' .$classes[$class]. '">'
+                 . '<td>' .$i. '</td>'
+                 . '<td>
+                    <a href="' .$this->index. '?package=' .$packages->package. '">' .$packages->package. '</a>'
+                 . '</td>'
+                 . '<td>' .nl2br($packages->summary). '</td>'
+                 .'</tr>';
         }
         if (!empty($pager_links['all'])) {
             echo '<tr>
@@ -369,7 +388,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * 
      * @return array An array of package rows
      */
-    private function getCategoryPackages($category, $limit = null)
+    protected function getCategoryPackages($category, $limit = null)
     {
         $pkg = DB_DataObject::factory('packages');
         $pkg->category_id = $category;
@@ -447,6 +466,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
             echo '<ul>';
             foreach ($devs as $dev) {
                 $dev = $dev->toArray();
+                
                 $dev['role'] = ucfirst($dev['role']);
                 echo "<li><a href='{$this->index}?user={$dev['handle']}'>";
                 echo (!empty($dev['name'])) ? $dev['name'] : $dev['handle'];
@@ -481,7 +501,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * 
      * @return array An array of releases
      */
-    private function getPackageLatestReleases($pkg)
+    protected function getPackageLatestReleases($pkg)
     {
         $package = DB_DataObject::factory('releases');
         $states  = array('snapshot', 'devel', 'alpha', 'beta', 'stable');
@@ -808,7 +828,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * 
      * @return object DB_DataObject with which to perform the search
      */
-    private function &packageSearchByName($search)
+    protected function &packageSearchByName($search)
     {
         $package          = DB_DataObject::factory('packages');
         $package->channel = $this->_channel;
@@ -834,9 +854,10 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * 
      * @return object DB_DataObject with which to perform the search
      */
-    private function &packageSearchByCategory($search)
+    protected function &packageSearchByCategory($search)
     {
         $package = DB_DataObject::factory('packages');
+        
         $package->channel = $this->_channel;
         $package->category_id = $search['category_id'];
 
@@ -855,7 +876,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      * 
      * @return object DB_DataObject with which to perform the search
      */
-    private function &packageSearchByMaintainer($search)
+    protected function &packageSearchByMaintainer($search)
     {
         $maintainer = DB_DataObject::factory('maintainers');
         $package    = DB_DataObject::factory('packages');
@@ -919,15 +940,15 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
                     <a href="<?php echo $this->index; ?>?email&amp;handle=<?php echo $maintainer->handle; ?>&amp;list">E-Mail</a>
                 </td>
                 <td>
-                    <?php
-                    if (is_string($maintainer->uri)) {
-                        if (!empty($maintainer->uri)) {
-                                ?>
-                                <a href="<?php echo $maintainer->uri;?>">Website</a>
-                                <?php
-                        }
+                <?php
+                if (is_string($maintainer->uri)) {
+                    if (!empty($maintainer->uri)) {
+                            ?>
+                            <a href="<?php echo $maintainer->uri;?>">Website</a>
+                            <?php
                     }
-                    ?>
+                }
+                ?>
                 </td>
             </tr>
             <?php
@@ -969,17 +990,17 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         ?>
         <ul>
             <li><a href="<?php echo $this->index; ?>?email&amp;handle=<?php echo $maintainer->handle; ?>">E-Mail</a></li>
-            <?php
-            if (is_string($handle->uri) && strlen($handle->description) > 0) {
-                    ?>
+        <?php
+        if (is_string($handle->uri) && strlen($handle->description) > 0) {
+                ?>
             <li><a href="<?php echo $handle->uri;?>">Website</a></li>
                     <?php
-            }
-            if (is_string($handle->wishlist) && strlen($handle->description) > 0) {
+        }
+        if (is_string($handle->wishlist) && strlen($handle->description) > 0) {
                 ?>
                 <li><a href="<?php echo $handle->wishlist; ?>" target="_blank">Wishlist</a></li>
                 <?php
-            }
+        }
             ?>
             <li><a href="<?php echo $this->rss;?>?rss&amp;handle=<?php echo $maintainer->handle; ?>">RSS Feed</a></li>
         </ul>

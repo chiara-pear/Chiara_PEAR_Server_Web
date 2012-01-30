@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.7.2" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.7.3" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>Chiara_PEAR_Server_Web</name>
  <channel>chiara-local</channel>
  <summary>Chiara PEAR Channel Web frontend.</summary>
@@ -23,22 +23,23 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
   <email>davey@php.net</email>
   <active>no</active>
  </lead>
- <date>2008-06-16</date>
- <time>09:33:21</time>
+ <date>2008-07-29</date>
+ <time>12:51:27</time>
  <version>
-  <release>0.4.3</release>
-  <api>0.4.3</api>
+  <release>0.4.4</release>
+  <api>0.4.4</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
- <notes>* Fix space on pear install instructions</notes>
+ <notes>* Change private methods to protected.
+* Coding standards fixes.</notes>
  <contents>
   <dir baseinstalldir="Chiara/PEAR/Server" name="/">
    <file baseinstalldir="Chiara/PEAR/Server" md5sum="f74fb0ccb33d4bf9be27a0ae143dda66" name="docs/examples/index.php" role="doc"/>
-   <file baseinstalldir="Chiara/PEAR/Server" md5sum="758ec5fe9487fdfab1c1c7c1ddffda90" name="Web.php" role="php"/>
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="0c8a3ef2c4256d7d448ce3d92ce495aa" name="Web.php" role="php"/>
   </dir>
  </contents>
  <dependencies>
@@ -53,6 +54,16 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
     <name>Chiara_PEAR_Server</name>
     <channel>pear.chiaraquartet.net</channel>
     <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.3.0</min>
    </package>
    <package>
     <name>Chiara_PEAR_Server</name>
@@ -162,6 +173,20 @@ See docs/examples/index.php for a usage example.</notes>
    <date>2008-06-16</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
    <notes>* Fix space on pear install instructions</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.4</release>
+    <api>0.4.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-07-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>* Change private methods to protected.
+* Coding standards fixes.</notes>
   </release>
  </changelog>
 </package>
