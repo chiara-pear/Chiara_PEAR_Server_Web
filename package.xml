@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.7.2" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Chiara_PEAR_Server_Web</name>
+ <channel>chiara-local</channel>
+ <summary>Chiara PEAR Channel Web frontend.</summary>
+ <description>Provides a frontend for PEAR channel servers akin to pearweb.
+Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Brett Bieber</name>
+  <user>bbieber</user>
+  <email>brett.bieber@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Davey Shafik</name>
+  <user>davey</user>
+  <email>davey@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-05-21</date>
+ <time>09:02:22</time>
+ <version>
+  <release>0.4.0</release>
+  <api>0.4.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+ <notes>First release, port of code from Crtx_PEAR_Channel_Frontend - rename to Chiara_PEAR_Server_Web.
+See docs/examples/index.php for a usage example.</notes>
+ <contents>
+  <dir baseinstalldir="Chiara/PEAR/Server" name="/">
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="6bcf0cff957b6ce7bd7eb3a477eb8bd1" name="docs/examples/index.php" role="doc"/>
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="12145cbd6aa6978edbe7cc7d775cde24" name="Web.php" role="php"/>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease/>
+ <changelog>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-05-21</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>First release, port of code from Crtx_PEAR_Channel_Frontend - rename to Chiara_PEAR_Server_Web.
+See docs/examples/index.php for a usage example.</notes>
+  </release>
+ </changelog>
+</package>
