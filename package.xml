@@ -21,61 +21,25 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
   <name>Davey Shafik</name>
   <user>davey</user>
   <email>davey@php.net</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Greg Beaver</name>
-  <user>cellog</user>
-  <email>cellog@php.net</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Brett Bieber</name>
-  <user>bbieber</user>
-  <email>brett.bieber@gmail.com</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Davey Shafik</name>
-  <user>davey</user>
-  <email>davey@php.net</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Greg Beaver</name>
-  <user>cellog</user>
-  <email>cellog@php.net</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Brett Bieber</name>
-  <user>bbieber</user>
-  <email>brett.bieber@gmail.com</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Davey Shafik</name>
-  <user>davey</user>
-  <email>davey@php.net</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <date>2008-06-16</date>
- <time>08:32:10</time>
+ <time>09:26:54</time>
  <version>
-  <release>0.4.1</release>
-  <api>0.4.1</api>
+  <release>0.4.2</release>
+  <api>0.4.2</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
- <notes>* Add undeclared dependency on Pager.
-* Fix to getPackageLatestReleases() method from Pavel Shevaev</notes>
+ <notes>* Add link to package main page on release download page.
+* Make code Valid XHTML 1.0 Strict!</notes>
  <contents>
   <dir baseinstalldir="Chiara/PEAR/Server" name="/">
-   <file baseinstalldir="Chiara/PEAR/Server" md5sum="6bcf0cff957b6ce7bd7eb3a477eb8bd1" name="docs/examples/index.php" role="doc"/>
-   <file baseinstalldir="Chiara/PEAR/Server" md5sum="90f53333028f889889359a979eac6808" name="Web.php" role="php"/>
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="f74fb0ccb33d4bf9be27a0ae143dda66" name="docs/examples/index.php" role="doc"/>
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="bf547cee8b67ee70d6f8bc33cc4a444c" name="Web.php" role="php"/>
   </dir>
  </contents>
  <dependencies>
@@ -90,6 +54,26 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
     <name>Chiara_PEAR_Server</name>
     <channel>pear.chiaraquartet.net</channel>
     <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.3.0</min>
+   </package>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.3.0</min>
    </package>
    <package>
     <name>Chiara_PEAR_Server</name>
@@ -142,6 +126,20 @@ See docs/examples/index.php for a usage example.</notes>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
    <notes>* Add undeclared dependency on Pager.
 * Fix to getPackageLatestReleases() method from Pavel Shevaev</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-06-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>* Add link to package main page on release download page.
+* Make code Valid XHTML 1.0 Strict!</notes>
   </release>
  </changelog>
 </package>

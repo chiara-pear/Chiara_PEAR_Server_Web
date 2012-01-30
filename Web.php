@@ -394,10 +394,10 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
      */
     public function showPackage()
     {
-        $pkg = $this->packageInfo($_GET['package']);
-        $subpkg = DB_DataObject::factory('packages');
+        $pkg             = $this->packageInfo($_GET['package']);
+        $subpkg          = DB_DataObject::factory('packages');
         $subpkg->channel = $this->_channel;
-        $subpkg->parent = $_GET['package'];
+        $subpkg->parent  = $_GET['package'];
 
         $has_sub = $subpkg->find(false);
 
@@ -407,6 +407,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         }
         echo '<h2>' .$pkg['package']. '</h2>';
         echo '<ul id="package">';
+        echo '<li><a href="' .$this->index. '?package=' .$pkg['package'].'">Main</a></li>';
         if (sizeof($pkg['releases']) > 0) {
             echo '<li><a href="' .$this->index. '?package=' .$pkg['package']. '&amp;downloads">Download</a></li>';
             echo '<li><a href="' .$this->index. '?rss&amp;package=' .$pkg['package']. '">RSS Feed</a></li>';
@@ -415,7 +416,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
         echo '</ul>';
         if (isset($_REQUEST['downloads'])) {
             $this->showPackageDownloads();
-            exit;
+            return;
         }
         echo '<h3>Summary</h3>';
         echo '<p>' .nl2br($pkg['summary']). '</p>';
@@ -522,13 +523,13 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
             return;
         } else {
             if (strlen($package->docs_uri) > 0) {
-                echo "<li><a href='$package->docs_uri'>Documentation</a></li>";
+                echo '<li><a href="'.htmlspecialchars($package->docs_uri).'">Documentation</a></li>';
             }
             if (strlen($package->bugs_uri) > 0) {
-                echo "<li><a href='$package->bugs_uri'>Bugs</a></li>";
+                echo '<li><a href="'.htmlspecialchars($package->bugs_uri).'">Bugs</a></li>';
             }
             if (strlen($package->cvs_uri) > 0) {
-                echo "<li><a href='$package->cvs_uri'>CVS</a></li>";
+                echo '<li><a href="'.htmlspecialchars($package->cvs_uri).'">CVS</a></li>';
             }
         }
     }
@@ -622,11 +623,12 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
                 echo "</tr>";
             } else {
                 echo "<tr>";
-                echo "<td><a href='{$this->index}?package={$_GET['package']}&amp;release=$version&amp;downloads'>$version-{$release['state']}</td>";
+                echo "<td><a href='{$this->index}?package={$_GET['package']}&amp;release=$version&amp;downloads'>$version-{$release['state']}</a></td>";
                 echo "<td>{$release['releasedate']}</td>";
                 echo "</tr>";
             }
         }
+        echo '</table>';
     }
 
     /**
