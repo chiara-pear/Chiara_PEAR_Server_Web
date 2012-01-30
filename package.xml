@@ -24,22 +24,21 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
   <active>no</active>
  </lead>
  <date>2008-06-16</date>
- <time>09:26:54</time>
+ <time>09:33:21</time>
  <version>
-  <release>0.4.2</release>
-  <api>0.4.2</api>
+  <release>0.4.3</release>
+  <api>0.4.3</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
- <notes>* Add link to package main page on release download page.
-* Make code Valid XHTML 1.0 Strict!</notes>
+ <notes>* Fix space on pear install instructions</notes>
  <contents>
   <dir baseinstalldir="Chiara/PEAR/Server" name="/">
    <file baseinstalldir="Chiara/PEAR/Server" md5sum="f74fb0ccb33d4bf9be27a0ae143dda66" name="docs/examples/index.php" role="doc"/>
-   <file baseinstalldir="Chiara/PEAR/Server" md5sum="bf547cee8b67ee70d6f8bc33cc4a444c" name="Web.php" role="php"/>
+   <file baseinstalldir="Chiara/PEAR/Server" md5sum="758ec5fe9487fdfab1c1c7c1ddffda90" name="Web.php" role="php"/>
   </dir>
  </contents>
  <dependencies>
@@ -54,6 +53,16 @@ Code originally from Davey Shafik's Crtx_PEAR_Server_Frontend</description>
     <name>Chiara_PEAR_Server</name>
     <channel>pear.chiaraquartet.net</channel>
     <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Chiara_PEAR_Server</name>
+    <channel>pear.chiaraquartet.net</channel>
+    <min>0.18.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.3.0</min>
    </package>
    <package>
     <name>Chiara_PEAR_Server</name>
@@ -140,6 +149,19 @@ See docs/examples/index.php for a usage example.</notes>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
    <notes>* Add link to package main page on release download page.
 * Make code Valid XHTML 1.0 Strict!</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.3</release>
+    <api>0.4.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-06-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>* Fix space on pear install instructions</notes>
   </release>
  </changelog>
 </package>

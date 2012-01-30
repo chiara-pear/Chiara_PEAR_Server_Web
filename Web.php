@@ -1330,8 +1330,7 @@ class Chiara_PEAR_Server_Web extends Chiara_PEAR_Server_Backend_DBDataObject {
             Then you will be able to install our packages by using:
         </p>
         <p>
-            <code>pear install <?php echo $channel['alias']; ?>/
-            <strong>package_name</strong></code>
+            <code>pear install <?php echo $channel['alias']; ?>/<strong>package_name</strong></code>
         </p>
         <?php
     }
